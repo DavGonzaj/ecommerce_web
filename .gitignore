@@ -65,3 +65,13 @@ appsettings*.json
 *.tmp
 *.temp
 *.orig
+
+# Ignore appsettings and other config files with secrets
+appsettings*.json
+adminsettings.json
+.env
+.env.*
+
+# Ignore any file with “key” or “secret” in the filename if you want
+*key*.json
+*secret*.json
