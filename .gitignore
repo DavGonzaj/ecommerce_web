@@ -1,22 +1,67 @@
-# Ignore app settings
+# Build results
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ASP.NET specific
+App_Data/
+App_WebReferences/
+App_Browsers/
+ClientBin/
+PublishProfiles/
+
+# NuGet packages
+*.nupkg
+packages/
+.nuget/
+
+# Rider IDE
+.idea/
+
+# Logs and databases
+*.log
+*.mdf
+*.ldf
+
+# IIS Express
+iisexpress/
+*.vspscc
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# VS Code settings
+.vscode/
+*.code-workspace
+
+# User-specific files
+*.userprefs
+
+# Publish output
+publish/
+
+# Environment & app config (sensitive)
 appsettings*.json
 .env
 .env.*
 
-# Ignore certificates and keys
+# Certificates and keys (sensitive)
 *.pfx
 *.pem
 *.der
 *.key
 
-# Then still keep your existing build and IDE ignores
-bin/
-obj/
-.vs/
-.vscode/
-*.user
-*.log
-publish/
-.env
-
-
+# Other temporary or cache files
+*.cache
+*.bak
+*.swp
+*.tmp
+*.temp
+*.orig
