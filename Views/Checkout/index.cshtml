@@ -1,0 +1,18 @@
+// Views/Checkout/Index.cshtml
+@model CheckoutViewModel
+<h2>Checkout</h2>
+<form asp-action="SubmitOrder" method="post">
+    <label>Full Name:</label>
+    <input asp-for="FullName" />
+    <label>Email:</label>
+    <input asp-for="Email" />
+    <label>Phone:</label>
+    <input asp-for="Phone" />
+    <label>Address:</label>
+    <input asp-for="Address" />
+    <label>
+        <input type="checkbox" asp-for="TermsAccepted" />
+        I understand this is a hand-delivered, final sale purchase.
+    </label>
+    <button type="submit">Confirm Order</button>
+</form>

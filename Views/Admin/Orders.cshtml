@@ -1,0 +1,9 @@
+@model List<Order>
+<h2>Orders</h2>
+@foreach (var order in Model)
+{
+    <div>
+        <strong>@order.FullName</strong> - @order.OrderDate.ToShortDateString() - Total: @order.Items.Sum(i => i.Price *
+            i.Quantity)
+</div>
+}

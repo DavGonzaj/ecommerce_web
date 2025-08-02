@@ -1,0 +1,12 @@
+﻿// Views/Home/Index.cshtml
+@model List<Product>
+<h2>Products</h2>
+@foreach (var product in Model)
+{
+    <div>
+        <h3>@product.Name</h3>
+        <p>@product.Description</p>
+        <p>Price: $@product.Price</p>
+        <a asp-action="ProductDetails" asp-route-id="@product.Id">View Details</a>
+    </div>
+}

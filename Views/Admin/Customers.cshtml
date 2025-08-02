@@ -1,0 +1,9 @@
+// Views/Admin/Customers.cshtml
+@model List<string>
+<h2>Customers</h2>
+<ul>
+    @foreach (var email in Model)
+    {
+        <li>@email</li>
+    }
+</ul>
