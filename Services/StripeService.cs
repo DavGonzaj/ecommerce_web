@@ -7,15 +7,14 @@ public class StripeService
         StripeConfiguration.ApiKey = config["Stripe:SecretKey"];
     }
 
-    public PaymentIntent CreatePaymentIntent(long amount, string currency = "usd")
+    public PaymentIntent CreatePaymentIntent(long amount)
     {
         var options = new PaymentIntentCreateOptions
         {
             Amount = amount,
-            Currency = currency,
-            PaymentMethodTypes = new List<string> { "card" },
+            Currency = "usd",
+            PaymentMethodTypes = new List<string> { "card" }
         };
-        var service = new PaymentIntentService();
-        return service.Create(options);
+        return new PaymentIntentService().Create(options);
     }
 }

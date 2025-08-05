@@ -13,6 +13,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorPages();
+builder.Services.AddSession();
+
 // MySQL with Pomelo
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 // Use your actual context class
@@ -36,6 +38,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
