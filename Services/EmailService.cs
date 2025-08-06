@@ -1,7 +1,8 @@
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
+using ecommerce_web.Models; // For Order model
 
 namespace ecommerce_web.Services
 {
@@ -14,13 +15,18 @@ namespace ecommerce_web.Services
             _config = config;
         }
 
-        public async Task SendEmailAsync(string toEmail, string subject, string message)
+        // ✅ Add the method here:
+        public async Task SendOrderConfirmationAsync(string toEmail, string fullName, Order order)
         {
             var apiKey = _config["SendGrid:ApiKey"];
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("your-email@example.com", "Your Store Name");
-            var to = new EmailAddress(toEmail);
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, message, message);
+            var from = new EmailAddress("noreply@yourecommerce.com", "Your Store");
+            var to = new EmailAddress(toEmail, fullName);
+            var subject = $"Order Confirmation - #{order.Id}";
+            var plainTextContent = $"Hi {fullName},\n\nThank you for your order!";
+            var htmlContent = $"<strong>Thank you {fullName}!</strong><br>Your order #{order.Id} has been confirmed.";
+
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             await client.SendEmailAsync(msg);
         }
     }

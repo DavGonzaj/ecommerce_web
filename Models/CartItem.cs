@@ -1,7 +1,10 @@
-public class CartItem
+namespace ecommerce_web.Models
 {
-    public int ProductId { get; set; }
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-    public int Quantity { get; set; }
+    public class CartItem
+    {
+        public int ProductId { get; set; }
+        public required string Name { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
+    }
 }

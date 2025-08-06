@@ -1,9 +1,11 @@
-
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ecommerce_web.Services;
 using ecommerce_web.Models;
+using System.Text.Json; // ✅ We're using System.Text.Json for serialization
+
 public class CheckoutController : Controller
 {
     private readonly MyContext _context;
@@ -14,6 +16,15 @@ public class CheckoutController : Controller
     {
         _context = context;
         _emailService = emailService;
+    }
+
+    // ✅ Only one GetCart() method
+    private List<CartItem>? GetCart()
+    {
+        var sessionCart = HttpContext.Session.GetString(CartSessionKey);
+        return string.IsNullOrEmpty(sessionCart)
+            ? new List<CartItem>()
+            : JsonSerializer.Deserialize<List<CartItem>>(sessionCart);
     }
 
     [HttpGet]
@@ -34,6 +45,7 @@ public class CheckoutController : Controller
             return View("Index", model);
         }
 
+        // Check stock
         foreach (var item in cart)
         {
             var product = _context.Products.FirstOrDefault(p => p.Id == item.ProductId);
@@ -61,6 +73,7 @@ public class CheckoutController : Controller
             }).ToList()
         };
 
+        // Update stock
         foreach (var item in cart)
         {
             var product = _context.Products.Find(item.ProductId);
@@ -73,8 +86,10 @@ public class CheckoutController : Controller
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
 
+        // Send email
         await _emailService.SendOrderConfirmationAsync(model.Email, model.FullName, order);
 
+        // Clear cart
         HttpContext.Session.Remove(CartSessionKey);
         TempData["OrderId"] = order.Id;
         return RedirectToAction("Confirmation");
@@ -85,15 +100,10 @@ public class CheckoutController : Controller
         int? orderId = TempData["OrderId"] as int?;
         if (orderId == null) return RedirectToAction("Index", "Home");
 
-        var order = _context.Orders.Include(o => o.Items).FirstOrDefault(o => o.Id == orderId);
-        return View(order);
-    }
+        var order = _context.Orders
+            .Include(o => o.Items)
+            .FirstOrDefault(o => o.Id == orderId);
 
-    private List<CartItem> GetCart()
-    {
-        var sessionCart = HttpContext.Session.GetString(CartSessionKey);
-        return string.IsNullOrEmpty(sessionCart)
-            ? new List<CartItem>()
-            : JsonSerializer.Deserialize<List<CartItem>>(sessionCart);
+        return View(order);
     }
 }
