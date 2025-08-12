@@ -130,3 +130,4 @@ C:\Users\nyroj\OneDrive\Desktop\coding\ecommerce_web\obj\Debug\net8.0\refint\eco
 C:\Users\nyroj\OneDrive\Desktop\coding\ecommerce_web\obj\Debug\net8.0\ecommerce_web.pdb
 C:\Users\nyroj\OneDrive\Desktop\coding\ecommerce_web\obj\Debug\net8.0\ecommerce_web.genruntimeconfig.cache
 C:\Users\nyroj\OneDrive\Desktop\coding\ecommerce_web\obj\Debug\net8.0\ref\ecommerce_web.dll
+C:\Users\nyroj\OneDrive\Desktop\coding\ecommerce_web\obj\Debug\net8.0\ecommerce_web.sourcelink.json
